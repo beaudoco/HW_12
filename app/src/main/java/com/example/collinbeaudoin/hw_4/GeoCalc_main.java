@@ -7,11 +7,61 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.location.Location;
 
 public class GeoCalc_main extends AppCompatActivity {
 
+    private class FinalValues {
+        // The distance between the coordinates.
+        private Float _distance = 0.0f;
+        // The bearing between the coordinates.
+        private Float _bearing = 0.0f;
+
+        public Float getDistance() {
+            return _distance;
+        }
+        public void setDistance(Float distance) {
+            distance = distance / 1000; // Convert to Km.
+            _distance = distance;
+        }
+        public Float getBearing() {
+            return _bearing;
+        }
+        public void setBearing(Float bearing) {
+            _bearing = bearing;
+        }
+    }
 
     private RelativeLayout relativeLayout;
+    private FinalValues finalVals = new FinalValues();
+
+    /**
+     * Calculates the distance and bearing between two coordinates and stores the results in a
+     * FinalValues object.
+     *
+     * @param p1Lat
+     *      The latitude of the first coordinate.
+     * @param p1Long
+     *      The longitude of the first coordinate.
+     * @param p2Lat
+     *      The latitude of the second coordinate.
+     * @param p2Long
+     *      The longitude of the second coordinate.
+     */
+    private void calculateResults(Double p1Lat, Double p1Long, Double p2Lat, Double p2Long) {
+        // Found on stack overflow: https://stackoverflow.com/questions/2741403/get-the-distance-between-two-geo-points
+        Location loc1 = new Location("");
+        loc1.setLatitude(p1Lat);
+        loc1.setLongitude(p1Long);
+
+        Location loc2 = new Location("");
+        loc2.setLatitude(p2Lat);
+        loc2.setLongitude(p2Long);
+
+        finalVals.setDistance(loc1.distanceTo(loc2));
+        finalVals.setBearing(loc1.bearingTo(loc2));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,19 +88,32 @@ public class GeoCalc_main extends AppCompatActivity {
             if(p1Latitude.length() == 0 || p2Latitude.length() == 0) {
                 Snackbar.make(relativeLayout, R.string.latRequired, Snackbar.LENGTH_LONG)
                         .show();
-                return;
+                return; // No further processing needed.
             } else if(p1Longitude.length() == 0 || p2Longitude.length() == 0) {
                 Snackbar.make(relativeLayout, R.string.longRequired, Snackbar.LENGTH_LONG)
                         .show();
-                return;
+                return; // No further processing needed.
             } else {
                 Snackbar.make(relativeLayout, R.string.calculated, Snackbar.LENGTH_LONG)
                         .show();
-                return;
             }
+
+            calculateResults(Double.parseDouble(p1Latitude), Double.parseDouble(p1Longitude),
+                             Double.parseDouble(p2Latitude), Double.parseDouble(p2Longitude));
+
+            // Display the results of the calculations
+            distLbl.setText(String.format("%s %.2f %s.", getString(R.string.distance), finalVals.getDistance(), getString(R.string.kilometers)));
+            bearLbl.setText(String.format("%s %.2f %s.", getString(R.string.bearing),finalVals.getBearing(), getString(R.string.degrees)));
         });
+
+        // Clear all inputs when clear button pressed.
         clrBtn.setOnClickListener(v -> {
-            p1LatTxt.setText("");
+            p1LatTxt.getText().clear();
+            p2LatTxt.getText().clear();
+            p1LongTxt.getText().clear();
+            p2LongTxt.getText().clear();
+            bearLbl.setText(R.string.bearing);
+            distLbl.setText(R.string.distance);
         });
     }
 }

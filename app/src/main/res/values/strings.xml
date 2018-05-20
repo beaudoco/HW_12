@@ -6,9 +6,11 @@
     <string name="p2LongHint">Enter longitude for p2</string>
     <string name="calculate">Calculate</string>
     <string name="clear">Clear</string>
-    <string name="distance">Distance: </string>
-    <string name="bearing">Bearing: </string>
+    <string name="distance">Distance:</string>
+    <string name="bearing">Bearing:</string>
     <string name="longRequired">Longitude required</string>
     <string name="latRequired">Latitude required</string>
     <string name="calculated">Distance and Bearing calculated</string>
+    <string name="kilometers">kilometers</string>
+    <string name="degrees">degrees</string>
 </resources>

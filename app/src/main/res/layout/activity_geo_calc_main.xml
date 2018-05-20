@@ -19,7 +19,7 @@
         android:layout_below="@+id/p1LongTxt"
         android:ems="10"
         android:hint="@string/p2LongHint"
-        android:inputType="number"
+        android:inputType="numberSigned|numberDecimal"
         tools:layout_editor_absoluteX="186dp"
         tools:layout_editor_absoluteY="74dp" />
 
@@ -31,7 +31,7 @@
         android:layout_alignParentTop="true"
         android:ems="10"
         android:hint="@string/p1LongHint"
-        android:inputType="number"
+        android:inputType="numberSigned|numberDecimal"
         tools:layout_editor_absoluteX="186dp"
         tools:layout_editor_absoluteY="16dp" />
 
@@ -43,7 +43,7 @@
         android:layout_alignTop="@+id/p2LongTxt"
         android:ems="10"
         android:hint="@string/p2LatHint"
-        android:inputType="number"
+        android:inputType="numberSigned|numberDecimal"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="74dp" />
 
@@ -55,7 +55,7 @@
         android:layout_alignParentTop="true"
         android:ems="10"
         android:hint="@string/p1LatHint"
-        android:inputType="number"
+        android:inputType="numberSigned|numberDecimal"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
 
