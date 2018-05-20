@@ -6,6 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".GeoCalc_main">
 
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Enter longitude for p2"
+        tools:layout_editor_absoluteX="186dp"
+        tools:layout_editor_absoluteY="74dp" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Enter longitude for p1"
+        tools:layout_editor_absoluteX="186dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Enter latitude for p2"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="74dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,5 +44,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Enter latitude for p1"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
 
 </android.support.constraint.ConstraintLayout>
