@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">GeoCalc</string>
+    <string name="p1LatHint">Enter latitude for p1</string>
+    <string name="p1LongHint">Enter longitude for p1</string>
+    <string name="p2LatHint">Enter latitude for p2</string>
+    <string name="p2LongHint">Enter longitude for p2</string>
+    <string name="calculate">Calculate</string>
+    <string name="clear">Clear</string>
+    <string name="distance">Distance: </string>
+    <string name="bearing">Bearing: </string>
+    <string name="longRequired">Longitude required</string>
+    <string name="latRequired">Latitude required</string>
+    <string name="calculated">Distance and Bearing calculated</string>
 </resources>

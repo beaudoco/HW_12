@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GeoCalc_main">
@@ -17,7 +18,7 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/p1LongTxt"
         android:ems="10"
-        android:hint="Enter longitude for p2"
+        android:hint="@string/p2LongHint"
         android:inputType="number"
         tools:layout_editor_absoluteX="186dp"
         tools:layout_editor_absoluteY="74dp" />
@@ -29,7 +30,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:ems="10"
-        android:hint="Enter longitude for p1"
+        android:hint="@string/p1LongHint"
         android:inputType="number"
         tools:layout_editor_absoluteX="186dp"
         tools:layout_editor_absoluteY="16dp" />
@@ -41,7 +42,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/p2LongTxt"
         android:ems="10"
-        android:hint="Enter latitude for p2"
+        android:hint="@string/p2LatHint"
         android:inputType="number"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="74dp" />
@@ -53,7 +54,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:ems="10"
-        android:hint="Enter latitude for p1"
+        android:hint="@string/p1LatHint"
         android:inputType="number"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
@@ -64,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/p2LongTxt"
-        android:text="Calculate" />
+        android:text="@string/calculate" />
 
     <Button
         android:id="@+id/clrBtn"
@@ -72,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/p2LongTxt"
         android:layout_toEndOf="@+id/calcBtn"
-        android:text="Clear" />
+        android:text="@string/clear" />
 
     <TextView
         android:id="@+id/distLbl"
@@ -80,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/calcBtn"
-        android:text="Distance: " />
+        android:text="@string/distance" />
 
     <TextView
         android:id="@+id/bearLbl"
@@ -88,6 +89,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/distLbl"
-        android:text="Bearing: " />
+        android:text="@string/bearing" />
 
 </RelativeLayout>
