@@ -10,6 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+/**
+ * Settings
+ * @author David Whitters and Collin Beaudoin.
+ *
+ * Allows the user to switch between kilometers and miles, and degrees and mils.
+ */
+
 public class Settings extends AppCompatActivity {
 
     private String bearSelection;

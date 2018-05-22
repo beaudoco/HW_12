@@ -15,6 +15,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.location.Location;
 
+/**
+ * GeoCalculator App
+ * @author David Whitters and Collin Beaudoin.
+ *
+ * Calculates the distance and bearing between two coordinates.
+ */
+
 public class GeoCalculator extends AppCompatActivity {
 
     // Activity Identifier
