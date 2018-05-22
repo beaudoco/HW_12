@@ -1,5 +1,6 @@
 package com.example.collinbeaudoin.hw_4b;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -106,6 +108,14 @@ public class GeoCalculator extends AppCompatActivity {
         finalVals.setBearing(loc1.bearingTo(loc2));
     }
 
+    /**
+     * Hide the soft keypad.
+     */
+    private void hideKeypad() {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +136,7 @@ public class GeoCalculator extends AppCompatActivity {
         finalVals = new FinalValues();
 
         calcBtn.setOnClickListener(v -> {
+            hideKeypad(); // Hide the keypad.
             String p1Latitude = p1LatTxt.getText().toString();
             String p2Latitude = p2LatTxt.getText().toString();
             String p1Longitude = p1LongTxt.getText().toString();
@@ -153,6 +164,7 @@ public class GeoCalculator extends AppCompatActivity {
 
         // Clear all inputs when clear button pressed.
         clrBtn.setOnClickListener(v -> {
+            hideKeypad(); // Hide the keypad.
             p1LatTxt.getText().clear();
             p2LatTxt.getText().clear();
             p1LongTxt.getText().clear();
