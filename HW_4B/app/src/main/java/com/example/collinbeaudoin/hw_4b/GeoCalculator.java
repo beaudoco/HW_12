@@ -1,44 +1,81 @@
 package com.example.collinbeaudoin.hw_4b;
 
-import android.support.design.widget.FloatingActionButton;
+import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.location.Location;
 
 public class GeoCalculator extends AppCompatActivity {
 
+    // Activity Identifier
+    public static final int CALC_SETTINGS = 1;
+
+    /**
+     * Used to store the calculated values and the units. Provides getters and setters for all values.
+     */
     private class FinalValues {
         // The distance between the coordinates.
         private Float _distance = 0.0f;
         // The bearing between the coordinates.
         private Float _bearing = 0.0f;
+        // The units that the distance is in.
+        private String _distUnits = getString(R.string.kilometers);
+        // The units that the bearing is in.
+        private String _bearUnits = getString(R.string.degrees);
 
         public Float getDistance() {
             return _distance;
         }
-        public void setDistance(Float distance) {
-            distance = distance / 1000; // Convert to Km.
-            _distance = distance;
+        public void setDistance(Float distInMeters) {
+            if(_distUnits.equalsIgnoreCase(getString(R.string.kilometers))) {
+                _distance = distInMeters / 1000; // Convert to Km.
+            } else if(_distUnits.equalsIgnoreCase(getString(R.string.miles))) {
+                _distance = distInMeters / 1609.34f; // Convert to miles.
+            }
         }
         public Float getBearing() {
             return _bearing;
         }
-        public void setBearing(Float bearing) {
-            _bearing = bearing;
+        public void setBearing(Float bearInDegrees) {
+            if(_bearUnits.equalsIgnoreCase(getString(R.string.degrees))) {
+                _bearing = bearInDegrees;
+            } else if(_bearUnits.equalsIgnoreCase(getString(R.string.mils))) {
+                _bearing = (bearInDegrees / 0.05625f); // Convert to mils.
+            }
         }
+        public void setDistUnits(String distUnits) {
+            _distUnits = distUnits;
+        }
+        public void setBearUnits(String bearUnits) {
+            _bearUnits = bearUnits;
+        }
+        public String getBearUnits() { return _bearUnits; }
+        public String getDistUnits() { return _distUnits; }
     }
 
-    private RelativeLayout relativeLayout;
-    private FinalValues finalVals = new FinalValues();
+    private CoordinatorLayout coordinatorLayout;
+    private FinalValues finalVals;
+
+    private TextView distLbl;
+    private TextView bearLbl;
+    private Button calcBtn;
+
+    /**
+     * Displays the final values in the appropriate text views.
+     */
+    private void displayResults() {
+        // Display the results of the calculations
+        distLbl.setText(String.format("%s %.2f %s.", getString(R.string.distance), finalVals.getDistance(), finalVals.getDistUnits()));
+        bearLbl.setText(String.format("%s %.2f %s.", getString(R.string.bearing),finalVals.getBearing(), finalVals.getBearUnits()));
+    }
 
     /**
      * Calculates the distance and bearing between two coordinates and stores the results in a
@@ -63,6 +100,8 @@ public class GeoCalculator extends AppCompatActivity {
         loc2.setLatitude(p2Lat);
         loc2.setLongitude(p2Long);
 
+        float dist = loc1.distanceTo(loc2);
+
         finalVals.setDistance(loc1.distanceTo(loc2));
         finalVals.setBearing(loc1.bearingTo(loc2));
     }
@@ -71,30 +110,20 @@ public class GeoCalculator extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geo_calculator);
-        //needs to be fixed
-        //relativeLayout = findViewById(R.id.relativeLayout);
-//        ignore
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //this is the logic to go to the next pag uppon toolbar click
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         // Main activity GUI elements.
         EditText p1LatTxt = (EditText) findViewById(R.id.p1LatTxt);
         final EditText p2LatTxt = (EditText) findViewById(R.id.p2LatTxt);
         EditText p1LongTxt = (EditText) findViewById(R.id.p1LongTxt);
         final EditText p2LongTxt = (EditText) findViewById(R.id.p2LongTxt);
         Button clrBtn = (Button) findViewById(R.id.clrBtn);
-        Button calcBtn = (Button) findViewById(R.id.calcBtn);
-        TextView distLbl = (TextView) findViewById(R.id.distLbl);
-        TextView bearLbl = (TextView) findViewById(R.id.bearLbl);
+        distLbl = (TextView) findViewById(R.id.distLbl);
+        bearLbl = (TextView) findViewById(R.id.bearLbl);
+        calcBtn = (Button) findViewById(R.id.calcBtn);
+        finalVals = new FinalValues();
 
         calcBtn.setOnClickListener(v -> {
             String p1Latitude = p1LatTxt.getText().toString();
@@ -104,24 +133,22 @@ public class GeoCalculator extends AppCompatActivity {
 
             // Notify user that there are blank fields.
             if(p1Latitude.length() == 0 || p2Latitude.length() == 0) {
-                Snackbar.make(relativeLayout, "Latitude required", Snackbar.LENGTH_LONG)
+                Snackbar.make(coordinatorLayout, R.string.latRequired, Snackbar.LENGTH_LONG)
                         .show();
                 return; // No further processing needed.
             } else if(p1Longitude.length() == 0 || p2Longitude.length() == 0) {
-                Snackbar.make(relativeLayout, "Longitude required", Snackbar.LENGTH_LONG)
+                Snackbar.make(coordinatorLayout, R.string.longRequired, Snackbar.LENGTH_LONG)
                         .show();
                 return; // No further processing needed.
             } else {
-                Snackbar.make(relativeLayout, "Distance and Bearing calculated", Snackbar.LENGTH_LONG)
+                Snackbar.make(coordinatorLayout, R.string.calculated, Snackbar.LENGTH_LONG)
                         .show();
             }
 
             calculateResults(Double.parseDouble(p1Latitude), Double.parseDouble(p1Longitude),
                     Double.parseDouble(p2Latitude), Double.parseDouble(p2Longitude));
 
-            // Display the results of the calculations
-            distLbl.setText(String.format("%s %.2f %s.", "Distance:", finalVals.getDistance(), "kilometers"));
-            bearLbl.setText(String.format("%s %.2f %s.", "Bearing:",finalVals.getBearing(), "degrees"));
+            displayResults();
         });
 
         // Clear all inputs when clear button pressed.
@@ -144,16 +171,26 @@ public class GeoCalculator extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        boolean handled = super.onOptionsItemSelected(item);
+        // If the super class doesn't handle the selection, we will.
+        if(!handled) {
+            int id = item.getItemId();
+            if (id == R.id.action_settings) {
+                Intent intent = new Intent(GeoCalculator.this, Settings.class);
+                startActivityForResult(intent, CALC_SETTINGS);
+                handled = true;
+            }
         }
 
-        return super.onOptionsItemSelected(item);
+        return handled;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == CALC_SETTINGS) {
+            finalVals.setBearUnits(data.getStringExtra("bearUnit"));
+            finalVals.setDistUnits(data.getStringExtra("distUnit"));
+        }
+        calcBtn.performClick(); // Simulate button click to recalculate bearing and distance.
     }
 }
