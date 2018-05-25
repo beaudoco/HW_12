@@ -21,6 +21,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_geo_calculator" />
+    <include
+        layout="@layout/content_geo_calculator"
+        android:layout_height="504dp" />
 
 </android.support.design.widget.CoordinatorLayout>
