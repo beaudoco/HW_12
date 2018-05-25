@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -10,57 +11,55 @@
 
     <EditText
         android:id="@+id/p1LatTxt"
-        android:layout_width="177dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Enter latitude for p1"
         android:inputType="numberSigned|numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/p2LatTxt"
         app:layout_constraintEnd_toStartOf="@+id/p1LongTxt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/p1LongTxt"
-        android:layout_width="181dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Enter longitude for p1"
         android:inputType="numberSigned|numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/p2LongTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/p1LatTxt"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/p2LatTxt"
-        android:layout_width="177dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/p1LatTxt"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Enter latitude for p2"
         android:inputType="numberSigned|numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/calcBtn"
         app:layout_constraintEnd_toStartOf="@+id/p2LongTxt"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/p1LatTxt"
         app:layout_constraintTop_toBottomOf="@+id/p1LatTxt" />
 
     <EditText
         android:id="@+id/p2LongTxt"
-        android:layout_width="181dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/p1LatTxt"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Enter longitude for p2"
         android:inputType="numberSigned|numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/clrBtn"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/p1LongTxt"
         app:layout_constraintStart_toEndOf="@+id/p2LatTxt"
         app:layout_constraintTop_toBottomOf="@+id/p1LongTxt" />
 
@@ -68,48 +67,38 @@
         android:id="@+id/calcBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/p2LatTxt"
+        android:layout_marginTop="8dp"
         android:text="Calculate"
-        app:layout_constraintBottom_toTopOf="@+id/distLbl"
-        app:layout_constraintEnd_toStartOf="@+id/clrBtn"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/p2LatTxt"
         app:layout_constraintTop_toBottomOf="@+id/p2LatTxt" />
 
     <Button
         android:id="@+id/clrBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/p2LatTxt"
-        android:layout_toEndOf="@+id/calcBtn"
+        android:layout_marginTop="8dp"
         android:text="Clear"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/calcBtn"
-        app:layout_constraintTop_toBottomOf="@+id/p2LatTxt" />
+        app:layout_constraintEnd_toEndOf="@+id/p2LongTxt"
+        app:layout_constraintTop_toBottomOf="@+id/p2LongTxt" />
 
     <TextView
         android:id="@+id/distLbl"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/calcBtn"
+        android:layout_marginTop="8dp"
         android:text="Distance:"
-        app:layout_constraintBottom_toTopOf="@+id/bearLbl"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/p1LongTxt"
+        app:layout_constraintStart_toStartOf="@+id/p1LatTxt"
         app:layout_constraintTop_toBottomOf="@+id/calcBtn" />
 
     <TextView
         android:id="@+id/bearLbl"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/distLbl"
+        android:layout_marginTop="8dp"
         android:text="Bearing:"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/p1LongTxt"
+        app:layout_constraintStart_toStartOf="@+id/p1LatTxt"
         app:layout_constraintTop_toBottomOf="@+id/distLbl" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
