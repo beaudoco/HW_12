@@ -17,8 +17,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Enter latitude for p1"
+        android:hint="@string/p1LatHint"
         android:inputType="numberSigned|numberDecimal"
+        android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/p1LongTxt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,8 +32,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Enter longitude for p1"
+        android:hint="@string/p1LongHint"
         android:inputType="numberSigned|numberDecimal"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/p1LatTxt"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,8 +46,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Enter latitude for p2"
+        android:hint="@string/p2LatHint"
         android:inputType="numberSigned|numberDecimal"
+        android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/p2LongTxt"
         app:layout_constraintStart_toStartOf="@+id/p1LatTxt"
         app:layout_constraintTop_toBottomOf="@+id/p1LatTxt" />
@@ -57,8 +60,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Enter longitude for p2"
+        android:hint="@string/p2LongHint"
         android:inputType="numberSigned|numberDecimal"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/p1LongTxt"
         app:layout_constraintStart_toEndOf="@+id/p2LatTxt"
         app:layout_constraintTop_toBottomOf="@+id/p1LongTxt" />
@@ -68,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Calculate"
+        android:text="@string/calculate"
         app:layout_constraintStart_toStartOf="@+id/p2LatTxt"
         app:layout_constraintTop_toBottomOf="@+id/p2LatTxt" />
 
@@ -77,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Clear"
+        android:text="@string/clear"
         app:layout_constraintEnd_toEndOf="@+id/p2LongTxt"
         app:layout_constraintTop_toBottomOf="@+id/p2LongTxt" />
 
@@ -86,7 +90,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Distance:"
+        android:text="@string/distance"
         app:layout_constraintEnd_toEndOf="@+id/p1LongTxt"
         app:layout_constraintStart_toStartOf="@+id/p1LatTxt"
         app:layout_constraintTop_toBottomOf="@+id/calcBtn" />
@@ -96,7 +100,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Bearing:"
+        android:text="@string/bearing"
         app:layout_constraintEnd_toEndOf="@+id/p1LongTxt"
         app:layout_constraintStart_toStartOf="@+id/p1LatTxt"
         app:layout_constraintTop_toBottomOf="@+id/distLbl" />
