@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">GeoCalculator</string>
+    <string name="action_settings">ajustes</string>
     <string name="p1LatHint">Introduzca la latitud para p1</string>
     <string name="p1LongHint">Introduzca la longitud para p1</string>
     <string name="p2LatHint">Introduzca la latitud para p2</string>
@@ -14,4 +15,15 @@
     <string name="calculated">Distancia y teniendo calculado</string>
     <string name="kilometers">kilometros</string>
     <string name="degrees">grados</string>
+    <string name="mils">mils</string>
+    <string name="miles">millas</string>
+    <string name="title_activity_calc_settings">MySettingsActivity</string>
+    <string-array name="distanceUnits">
+        <item>kilometros</item>
+        <item>Millas</item>
+    </string-array>
+    <string-array name="bearingUnits">
+        <item>Grados</item>
+        <item>Mils</item>
+    </string-array>
 </resources>
