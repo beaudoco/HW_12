@@ -15,6 +15,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.location.Location;
 
+import com.example.collinbeaudoin.hw_4b.dummy.HistoryContent;
+
+import org.joda.time.DateTime;
+
 /**
  * GeoCalculator App
  * @author David Whitters and Collin Beaudoin.
@@ -26,6 +30,7 @@ public class GeoCalculator extends AppCompatActivity {
 
     // Activity Identifier
     public static final int CALC_SETTINGS = 1;
+    public static final int HISTORY_RESULT = 2;
 
     /**
      * Used to store the calculated values and the units. Provides getters and setters for all values.
@@ -76,6 +81,11 @@ public class GeoCalculator extends AppCompatActivity {
     private TextView distLbl;
     private TextView bearLbl;
     private Button calcBtn;
+
+    EditText p1LatTxt;
+    EditText p2LatTxt;
+    EditText p1LongTxt;
+    EditText p2LongTxt;
 
     /**
      * Displays the final values in the appropriate text views.
@@ -132,10 +142,10 @@ public class GeoCalculator extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Main activity GUI elements.
-        EditText p1LatTxt = (EditText) findViewById(R.id.p1LatTxt);
-        final EditText p2LatTxt = (EditText) findViewById(R.id.p2LatTxt);
-        EditText p1LongTxt = (EditText) findViewById(R.id.p1LongTxt);
-        final EditText p2LongTxt = (EditText) findViewById(R.id.p2LongTxt);
+        p1LatTxt = (EditText) findViewById(R.id.p1LatTxt);
+        p2LatTxt = (EditText) findViewById(R.id.p2LatTxt);
+        p1LongTxt = (EditText) findViewById(R.id.p1LongTxt);
+        p2LongTxt = (EditText) findViewById(R.id.p2LongTxt);
         Button clrBtn = (Button) findViewById(R.id.clrBtn);
         distLbl = (TextView) findViewById(R.id.distLbl);
         bearLbl = (TextView) findViewById(R.id.bearLbl);
@@ -167,6 +177,12 @@ public class GeoCalculator extends AppCompatActivity {
                     Double.parseDouble(p2Latitude), Double.parseDouble(p2Longitude));
 
             displayResults();
+
+            // remember the calculation.
+            HistoryContent.HistoryItem item = new
+                    HistoryContent.HistoryItem(p1Latitude.toString(),
+                    p1Longitude.toString(), p2Latitude.toString(), p2Longitude.toString(), DateTime.now());
+            HistoryContent.addItem(item);
         });
 
         // Clear all inputs when clear button pressed.
@@ -198,6 +214,10 @@ public class GeoCalculator extends AppCompatActivity {
                 Intent intent = new Intent(GeoCalculator.this, Settings.class);
                 startActivityForResult(intent, CALC_SETTINGS);
                 handled = true;
+            } else if(item.getItemId() == R.id.action_history) {
+                Intent intent = new Intent(GeoCalculator.this,HistoryActivity.class);
+                startActivityForResult(intent, HISTORY_RESULT);
+                handled = true;
             }
         }
 
@@ -209,7 +229,14 @@ public class GeoCalculator extends AppCompatActivity {
         if(resultCode == CALC_SETTINGS) {
             finalVals.setBearUnits(data.getStringExtra("bearUnit"));
             finalVals.setDistUnits(data.getStringExtra("distUnit"));
+        } else if (resultCode == HISTORY_RESULT) {
+            String[] vals = data.getStringArrayExtra("item");
+            this.p1LatTxt.setText(vals[0]);
+            this.p1LongTxt.setText(vals[1]);
+            this.p2LatTxt.setText(vals[2]);
+            this.p2LongTxt.setText(vals[3]);
         }
+
         calcBtn.performClick(); // Simulate button click to recalculate bearing and distance.
     }
 }
