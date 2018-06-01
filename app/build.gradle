@@ -36,4 +36,5 @@ dependencies {
     implementation 'com.android.support:design:27.1.0'
     implementation 'com.android.support:recyclerview-v7:27.1.0'
     implementation 'net.danlew:android.joda:2.9.5'
+    implementation 'com.truizlop.sectionedrecyclerview:library:1.2.0'
 }
