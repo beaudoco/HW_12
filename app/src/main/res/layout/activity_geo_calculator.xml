@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GeoCalculator">
+    tools:context="edu.gvsu.cis.hw_10.GeoCalculator">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".GeoCalculator"
+    tools:context="edu.gvsu.cis.hw_10.GeoCalculator"
     tools:showIn="@layout/activity_geo_calculator">
 
     <EditText

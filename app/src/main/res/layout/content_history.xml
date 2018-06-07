@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".HistoryActivity"
+    tools:context="edu.gvsu.cis.hw_10.HistoryActivity"
     tools:showIn="@layout/activity_history">
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.example.collinbeaudoin.hw_4b.HistoryFragment"
+        android:name="edu.gvsu.cis.hw_10.HistoryFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

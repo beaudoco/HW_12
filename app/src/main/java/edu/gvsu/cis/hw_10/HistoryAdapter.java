@@ -1,4 +1,4 @@
-package com.example.collinbeaudoin.hw_4b;
+package edu.gvsu.cis.hw_10;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,8 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.collinbeaudoin.hw_4b.HistoryFragment.OnListFragmentInteractionListener;
-import com.example.collinbeaudoin.hw_4b.dummy.HistoryContent.HistoryItem;
+import edu.gvsu.cis.hw_10.HistoryFragment.OnListFragmentInteractionListener;
+
+import edu.gvsu.cis.hw_10.dummy.HistoryContent.HistoryItem;
 import com.truizlop.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 
 import org.joda.time.format.DateTimeFormat;

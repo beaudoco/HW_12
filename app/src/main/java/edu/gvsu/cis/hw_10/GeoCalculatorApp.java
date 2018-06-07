@@ -1,4 +1,4 @@
-package com.example.collinbeaudoin.hw_4b;
+package edu.gvsu.cis.hw_10;
 
 import android.app.Application;
 

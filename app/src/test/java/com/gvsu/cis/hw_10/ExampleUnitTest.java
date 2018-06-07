@@ -1,4 +1,4 @@
-package com.example.collinbeaudoin.hw_4b;
+package com.gvsu.cis.hw_10;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.collinbeaudoin.hw_4b;
+package edu.gvsu.cis.hw_10;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.collinbeaudoin.hw_4b.dummy.HistoryContent;
-import com.example.collinbeaudoin.hw_4b.dummy.HistoryContent.HistoryItem;
+import edu.gvsu.cis.hw_10.dummy.HistoryContent;
+import edu.gvsu.cis.hw_10.dummy.HistoryContent.HistoryItem;
 
 /**
  * A fragment representing a list of Items.

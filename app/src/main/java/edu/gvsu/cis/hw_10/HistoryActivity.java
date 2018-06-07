@@ -1,4 +1,4 @@
-package com.example.collinbeaudoin.hw_4b;
+package edu.gvsu.cis.hw_10;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.example.collinbeaudoin.hw_4b.dummy.HistoryContent;
+import edu.gvsu.cis.hw_10.dummy.HistoryContent;
 
 public class HistoryActivity extends AppCompatActivity
     implements HistoryFragment.OnListFragmentInteractionListener {

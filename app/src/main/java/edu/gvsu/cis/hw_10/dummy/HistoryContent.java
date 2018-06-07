@@ -1,11 +1,9 @@
-package com.example.collinbeaudoin.hw_4b.dummy;
+package edu.gvsu.cis.hw_10.dummy;
 
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Helper class for providing sample content for user interfaces created by

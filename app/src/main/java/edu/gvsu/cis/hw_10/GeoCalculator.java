@@ -1,4 +1,4 @@
-package com.example.collinbeaudoin.hw_4b;
+package edu.gvsu.cis.hw_10;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.location.Location;
 
-import com.example.collinbeaudoin.hw_4b.dummy.HistoryContent;
+import edu.gvsu.cis.hw_10.dummy.HistoryContent;
 
 import org.joda.time.DateTime;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.collinbeaudoin.hw_4b">
+    package="edu.gvsu.cis.hw_10">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".GeoCalculator"
+            android:name="edu.gvsu.cis.hw_10.GeoCalculator"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,9 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Settings" />
+        <activity android:name="edu.gvsu.cis.hw_10.Settings" />
         <activity
-            android:name=".HistoryActivity"
+            android:name="edu.gvsu.cis.hw_10.HistoryActivity"
             android:label="@string/title_activity_history"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
