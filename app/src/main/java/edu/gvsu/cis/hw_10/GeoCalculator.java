@@ -20,13 +20,23 @@ import android.location.Location;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.gvsu.cis.hw_10.dummy.HistoryContent;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 import org.parceler.Parcels;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * GeoCalculator App
@@ -38,16 +48,32 @@ import org.parceler.Parcels;
 public class GeoCalculator extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener {
 
+    DatabaseReference topRef;
+
     // Activity Identifier
     public static final int CALC_SETTINGS = 1;
     public static final int HISTORY_RESULT = 2;
     public static final int NEW_COORDINATE_REQUEST = 3;
+
+    public static List<LocationLookup> allHistory;
+    LocationLookup mLocation;
 
     GoogleApiClient apiClient;
 
     @OnClick(R.id.searchBtn) void searchBtn() {
         Intent intent = new Intent(GeoCalculator.this, LocationSearchActivity.class);
         startActivityForResult(intent, NEW_COORDINATE_REQUEST);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        topRef = FirebaseDatabase.getInstance().getReference();
+
+        allHistory.clear();
+        topRef = FirebaseDatabase.getInstance().getReference("history");
+        topRef.addChildEventListener (chEvListener);
+//topRef.addValueEventListener(valEvListener);
     }
 
     @Override
@@ -166,6 +192,8 @@ public class GeoCalculator extends AppCompatActivity
 
         ButterKnife.bind(this);
 
+        allHistory = new ArrayList<LocationLookup>();
+
         // Setup the api client.
         apiClient = new GoogleApiClient.Builder(this)
                 .addApi(Places.GEO_DATA_API)
@@ -211,10 +239,14 @@ public class GeoCalculator extends AppCompatActivity
             displayResults();
 
             // remember the calculation.
-            HistoryContent.HistoryItem item = new
-                    HistoryContent.HistoryItem(p1Latitude.toString(),
-                    p1Longitude.toString(), p2Latitude.toString(), p2Longitude.toString(), DateTime.now());
-            HistoryContent.addItem(item);
+            LocationLookup newLocationLookup = new LocationLookup();
+            newLocationLookup.origLat = Double.valueOf(p1Latitude);
+            newLocationLookup.origLng = Double.valueOf(p1Longitude);
+            newLocationLookup.endLat = Double.valueOf(p2Latitude);
+            newLocationLookup.endLng = Double.valueOf(p2Longitude);
+            newLocationLookup._timeStamp = DateTime.now();
+
+            allHistory.add(newLocationLookup);
         });
 
         // Clear all inputs when clear button pressed.
@@ -270,14 +302,55 @@ public class GeoCalculator extends AppCompatActivity
         } else if (requestCode == NEW_COORDINATE_REQUEST) {
             if(resultCode == RESULT_OK) {
                 Parcelable myParcel = data.getParcelableExtra("LOCATION");
-                LocationLookup myLocation = Parcels.unwrap(myParcel);
-                this.p1LatTxt.setText(String.valueOf(myLocation.getOrigLat()));
-                this.p1LongTxt.setText(String.valueOf(myLocation.getOrigLng()));
-                this.p2LatTxt.setText(String.valueOf(myLocation.getEndLat()));
-                this.p2LongTxt.setText(String.valueOf(myLocation.getEndLng()));
+                mLocation = Parcels.unwrap(myParcel);
+                this.p1LatTxt.setText(String.valueOf(mLocation.getOrigLat()));
+                this.p1LongTxt.setText(String.valueOf(mLocation.getOrigLng()));
+                this.p2LatTxt.setText(String.valueOf(mLocation.getEndLat()));
+                this.p2LongTxt.setText(String.valueOf(mLocation.getEndLng()));
+                DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+                mLocation.set_timeStamp(DateTime.now());
+                topRef.push().setValue(mLocation);
             }
         }
 
         calcBtn.performClick(); // Simulate button click to recalculate bearing and distance.
+    }
+
+    private ChildEventListener chEvListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            LocationLookup entry = (LocationLookup)
+                    dataSnapshot.getValue(LocationLookup.class);
+            entry._key = dataSnapshot.getKey();
+            allHistory.add(entry);
+        }
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        }
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            LocationLookup entry = (LocationLookup)
+                    dataSnapshot.getValue(LocationLookup.class);
+            List<LocationLookup> newHistory = new ArrayList<LocationLookup>();
+            for (LocationLookup t : allHistory) {
+                if (!t._key.equals(dataSnapshot.getKey())) {
+                    newHistory.add(t);
+                }
+            }
+            allHistory = newHistory;
+        }
+        @Override
+
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+        }
+    };
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        topRef.removeEventListener(chEvListener);
     }
 }

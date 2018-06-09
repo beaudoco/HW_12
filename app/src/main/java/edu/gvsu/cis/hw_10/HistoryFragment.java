@@ -1,6 +1,7 @@
 package edu.gvsu.cis.hw_10;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -11,8 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.gvsu.cis.hw_10.dummy.HistoryContent;
-import edu.gvsu.cis.hw_10.dummy.HistoryContent.HistoryItem;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -21,6 +21,8 @@ import edu.gvsu.cis.hw_10.dummy.HistoryContent.HistoryItem;
  * interface.
  */
 public class HistoryFragment extends Fragment {
+
+    List<LocationLookup> allHistory;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -33,6 +35,7 @@ public class HistoryFragment extends Fragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public HistoryFragment() {
+        allHistory = GeoCalculator.allHistory;
     }
 
     // TODO: Customize parameter initialization
@@ -75,7 +78,7 @@ public class HistoryFragment extends Fragment {
                     DividerItemDecoration.VERTICAL);
             recyclerView.addItemDecoration(did);
 
-            recyclerView.setAdapter(new HistoryAdapter(HistoryContent.ITEMS, mListener));
+            recyclerView.setAdapter(new HistoryAdapter(allHistory, mListener));
         }
         return view;
     }
@@ -110,6 +113,6 @@ public class HistoryFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(HistoryItem item);
+        void onListFragmentInteraction(LocationLookup item);
     }
 }

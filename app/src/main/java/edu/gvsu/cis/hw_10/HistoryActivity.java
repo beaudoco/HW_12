@@ -8,15 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import edu.gvsu.cis.hw_10.dummy.HistoryContent;
-
 public class HistoryActivity extends AppCompatActivity
     implements HistoryFragment.OnListFragmentInteractionListener {
 
-    public void onListFragmentInteraction(HistoryContent.HistoryItem item) {
+    public void onListFragmentInteraction(LocationLookup item) {
         System.out.println("Interact!");
         Intent intent = new Intent();
-        String[] vals = {item.origLat, item.origLng, item.destLat, item.destLng};
+        String[] vals = {String.valueOf(item.origLat), String.valueOf(item.origLng),
+                String.valueOf(item.endLat), String.valueOf(item.endLng)};
         intent.putExtra("item", vals);
         setResult(GeoCalculator.HISTORY_RESULT,intent);
         finish();
