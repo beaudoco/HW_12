@@ -2,6 +2,8 @@ package edu.gvsu.cis.hw_10;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.Snackbar;
@@ -15,9 +17,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.location.Location;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.places.Places;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import edu.gvsu.cis.hw_10.dummy.HistoryContent;
 
 import org.joda.time.DateTime;
+import org.parceler.Parcels;
 
 /**
  * GeoCalculator App
@@ -26,11 +35,25 @@ import org.joda.time.DateTime;
  * Calculates the distance and bearing between two coordinates.
  */
 
-public class GeoCalculator extends AppCompatActivity {
+public class GeoCalculator extends AppCompatActivity
+        implements GoogleApiClient.OnConnectionFailedListener {
 
     // Activity Identifier
     public static final int CALC_SETTINGS = 1;
     public static final int HISTORY_RESULT = 2;
+    public static final int NEW_COORDINATE_REQUEST = 3;
+
+    GoogleApiClient apiClient;
+
+    @OnClick(R.id.searchBtn) void searchBtn() {
+        Intent intent = new Intent(GeoCalculator.this, LocationSearchActivity.class);
+        startActivityForResult(intent, NEW_COORDINATE_REQUEST);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        System.out.println("Hello world!!!!!!");
+    }
 
     /**
      * Used to store the calculated values and the units. Provides getters and setters for all values.
@@ -141,6 +164,15 @@ public class GeoCalculator extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ButterKnife.bind(this);
+
+        // Setup the api client.
+        apiClient = new GoogleApiClient.Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(this, this)
+                .build();
+
         // Main activity GUI elements.
         p1LatTxt = (EditText) findViewById(R.id.p1LatTxt);
         p2LatTxt = (EditText) findViewById(R.id.p2LatTxt);
@@ -235,6 +267,15 @@ public class GeoCalculator extends AppCompatActivity {
             this.p1LongTxt.setText(vals[1]);
             this.p2LatTxt.setText(vals[2]);
             this.p2LongTxt.setText(vals[3]);
+        } else if (requestCode == NEW_COORDINATE_REQUEST) {
+            if(resultCode == RESULT_OK) {
+                Parcelable myParcel = data.getParcelableExtra("LOCATION");
+                LocationLookup myLocation = Parcels.unwrap(myParcel);
+                this.p1LatTxt.setText(String.valueOf(myLocation.getOrigLat()));
+                this.p1LongTxt.setText(String.valueOf(myLocation.getOrigLng()));
+                this.p2LatTxt.setText(String.valueOf(myLocation.getEndLat()));
+                this.p2LongTxt.setText(String.valueOf(myLocation.getEndLng()));
+            }
         }
 
         calcBtn.performClick(); // Simulate button click to recalculate bearing and distance.

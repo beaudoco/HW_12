@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDGnsjYMZglU_fqnqJP8uCbewQBfquBMXQ" />
+
         <activity
-            android:name="edu.gvsu.cis.hw_10.GeoCalculator"
+            android:name=".GeoCalculator"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,11 +23,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="edu.gvsu.cis.hw_10.Settings" />
+        <activity android:name=".Settings" />
         <activity
-            android:name="edu.gvsu.cis.hw_10.HistoryActivity"
+            android:name=".HistoryActivity"
             android:label="@string/title_activity_history"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".LocationSearchActivity"
+            android:label="@string/title_activity_location_search"
+            android:parentActivityName=".GeoCalculator"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.gvsu.cis.hw_10.GeoCalculator" />
         </activity>
     </application>
 

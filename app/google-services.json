@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "699458885215",
+    "firebase_url": "https://hw10-10d3e.firebaseio.com",
+    "project_id": "hw10-10d3e",
+    "storage_bucket": "hw10-10d3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699458885215:android:70993b3ec4ac44ae",
+        "android_client_info": {
+          "package_name": "edu.gvsu.cis.hw_10"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699458885215-bcc2hnvn23ku4u6qd8tdaqmarkmvgeff.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "699458885215-bcc2hnvn23ku4u6qd8tdaqmarkmvgeff.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGnsjYMZglU_fqnqJP8uCbewQBfquBMXQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
