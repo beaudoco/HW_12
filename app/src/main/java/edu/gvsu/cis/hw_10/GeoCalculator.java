@@ -68,12 +68,10 @@ public class GeoCalculator extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        topRef = FirebaseDatabase.getInstance().getReference();
-
         allHistory.clear();
         topRef = FirebaseDatabase.getInstance().getReference("history");
         topRef.addChildEventListener (chEvListener);
-//topRef.addValueEventListener(valEvListener);
+        //topRef.addValueEventListener(valEvListener);
     }
 
     @Override
@@ -193,6 +191,7 @@ public class GeoCalculator extends AppCompatActivity
         ButterKnife.bind(this);
 
         allHistory = new ArrayList<LocationLookup>();
+        mLocation = new LocationLookup();
 
         // Setup the api client.
         apiClient = new GoogleApiClient.Builder(this)
@@ -239,14 +238,17 @@ public class GeoCalculator extends AppCompatActivity
             displayResults();
 
             // remember the calculation.
-            LocationLookup newLocationLookup = new LocationLookup();
-            newLocationLookup.origLat = Double.valueOf(p1Latitude);
-            newLocationLookup.origLng = Double.valueOf(p1Longitude);
-            newLocationLookup.endLat = Double.valueOf(p2Latitude);
-            newLocationLookup.endLng = Double.valueOf(p2Longitude);
-            newLocationLookup._timeStamp = DateTime.now();
+            mLocation.origLat = Double.valueOf(p1Latitude);
+            mLocation.origLng = Double.valueOf(p1Longitude);
+            mLocation.endLat = Double.valueOf(p2Latitude);
+            mLocation.endLng = Double.valueOf(p2Longitude);
 
-            allHistory.add(newLocationLookup);
+            DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+            mLocation._timeStamp = fmt.print(DateTime.now());
+
+           // allHistory.add(newLocationLookup);
+            topRef.push().setValue(mLocation);
+
         });
 
         // Clear all inputs when clear button pressed.
@@ -308,7 +310,7 @@ public class GeoCalculator extends AppCompatActivity
                 this.p2LatTxt.setText(String.valueOf(mLocation.getEndLat()));
                 this.p2LongTxt.setText(String.valueOf(mLocation.getEndLng()));
                 DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
-                mLocation.set_timeStamp(DateTime.now());
+                mLocation.set_timeStamp(fmt.print(DateTime.now()));
                 topRef.push().setValue(mLocation);
             }
         }

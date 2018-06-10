@@ -10,9 +10,9 @@ public class LocationLookup {
     double origLng;
     double endLat;
     double endLng;
-    DateTime _timeStamp;
+    String _timeStamp;
 
-    public DateTime get_timeStamp() {
+    public String get_timeStamp() {
         return _timeStamp;
     }
 
@@ -36,7 +36,7 @@ public class LocationLookup {
         return endLng;
     }
 
-    public void set_timeStamp(DateTime _timeStamp) {
+    public void set_timeStamp(String _timeStamp) {
         this._timeStamp = _timeStamp;
     }
 

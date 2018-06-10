@@ -37,9 +37,8 @@ public class HistoryAdapter extends
 //mValues = items;
         this.dayValues = new HashMap<String,List<LocationLookup>>();
         this.sectionHeaders = new ArrayList<String>();
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
         for (LocationLookup hi : items) {
-            String key = "Entries for " + fmt.print(hi.get_timeStamp());
+            String key = "Entries for " + hi.get_timeStamp();
             List<LocationLookup> list = this.dayValues.get(key);
             if (list == null) {
                 list = new ArrayList<LocationLookup>();
