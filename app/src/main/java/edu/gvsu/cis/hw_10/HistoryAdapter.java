@@ -38,7 +38,8 @@ public class HistoryAdapter extends
         this.dayValues = new HashMap<String,List<LocationLookup>>();
         this.sectionHeaders = new ArrayList<String>();
         for (LocationLookup hi : items) {
-            String key = "Entries for " + hi.get_timeStamp();
+            // Create section headers based on day.
+            String key = "Entries for " + hi.get_timeStamp().split("T")[0];
             List<LocationLookup> list = this.dayValues.get(key);
             if (list == null) {
                 list = new ArrayList<LocationLookup>();

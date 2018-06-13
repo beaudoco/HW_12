@@ -278,7 +278,6 @@ public class GeoCalculator extends AppCompatActivity
             DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
             mLocation._timeStamp = fmt.print(DateTime.now());
 
-           // allHistory.add(newLocationLookup);
             topRef.push().setValue(mLocation);
 
         });
@@ -395,7 +394,7 @@ public class GeoCalculator extends AppCompatActivity
         public void onReceive(Context context, Intent intent) {
             Log.d("weather", "onReceive: " + intent);
             Bundle bundle = intent.getExtras();
-            double temp = bundle.getDouble("TEMPERATURE");
+            String temp = bundle.getString("TEMPERATURE");
             String summary = bundle.getString("SUMMARY");
             String icon = bundle.getString("ICON").replaceAll("-", "_");
             String key = bundle.getString("KEY");
@@ -404,13 +403,11 @@ public class GeoCalculator extends AppCompatActivity
             setWeatherViews(View.VISIBLE);
             if (key.equals("p1")) {
                 p1Summary.setText(summary);
-                p1Temp.setText(Double.toString(temp));
+                p1Temp.setText(temp);
                 p1Icon.setImageResource(resID);
-
-                p1Icon.setVisibility(View.INVISIBLE);
             } else {
                 p2Summary.setText(summary);
-                p2Temp.setText(Double.toString(temp));
+                p2Temp.setText(temp);
                 p2Icon.setImageResource(resID);
             }
         }

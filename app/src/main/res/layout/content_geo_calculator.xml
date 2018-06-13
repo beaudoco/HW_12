@@ -131,48 +131,67 @@
         android:id="@+id/p1Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="213dp" />
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:maxHeight="42dp"
+        android:maxWidth="42dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p2Icon"
+        app:layout_constraintStart_toStartOf="@+id/p1LatTxt"
+        app:layout_constraintTop_toBottomOf="@+id/bearLbl"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
     <ImageView
         android:id="@+id/p2Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="261dp" />
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        android:maxHeight="42dp"
+        android:maxWidth="42dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/searchBtn"
+        app:layout_constraintStart_toStartOf="@+id/p1LatTxt"
+        app:layout_constraintTop_toBottomOf="@+id/p1Icon"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
     <TextView
         android:id="@+id/p1Temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="64dp"
-        tools:layout_editor_absoluteY="213dp" />
+        app:layout_constraintStart_toEndOf="@+id/p1Icon"
+        app:layout_constraintTop_toTopOf="@+id/p1Icon" />
 
     <TextView
         android:id="@+id/p1Summary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="64dp"
-        tools:layout_editor_absoluteY="232dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/p1Icon"
+        app:layout_constraintStart_toEndOf="@+id/p1Icon"
+        app:layout_constraintTop_toBottomOf="@+id/p1Temp" />
 
     <TextView
         android:id="@+id/p2Temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="64dp"
-        tools:layout_editor_absoluteY="261dp" />
+        app:layout_constraintStart_toEndOf="@+id/p2Icon"
+        app:layout_constraintTop_toTopOf="@+id/p2Icon" />
 
     <TextView
         android:id="@+id/p2Summary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="64dp"
-        tools:layout_editor_absoluteY="280dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/p2Icon"
+        app:layout_constraintStart_toEndOf="@+id/p2Icon" />
 
 </android.support.constraint.ConstraintLayout>

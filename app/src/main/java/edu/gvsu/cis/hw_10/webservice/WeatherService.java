@@ -53,6 +53,7 @@ public class WeatherService extends IntentService {
         intent.putExtra(EXTRA_LAT, lat);
         intent.putExtra(EXTRA_LNG, lng);
         intent.putExtra(EXTRA_KEY, key);
+        intent.putExtra(EXTRA_TIME, String.valueOf(System.currentTimeMillis() / 1000L));
         context.startService(intent);
     }
 
@@ -77,7 +78,7 @@ public class WeatherService extends IntentService {
     private void fetchWeatherData(String key, String lat, String lon, String time) {
         try {
             // TODO: Format the url based on the input params
-            URL url = new URL(BASE_URL + "/"+ lat + "/" +lon +"," + time);
+            URL url = new URL(BASE_URL + "/"+ lat + "," + lon +"," + time);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(5000 /* milliseconds */);
             conn.setConnectTimeout(10000 /* milliseconds */);
