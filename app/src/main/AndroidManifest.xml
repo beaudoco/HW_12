@@ -27,7 +27,7 @@
         <activity
             android:name=".HistoryActivity"
             android:label="@string/title_activity_history"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LocationSearchActivity"
             android:label="@string/title_activity_location_search"
@@ -37,6 +37,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.gvsu.cis.hw_10.GeoCalculator" />
         </activity>
+
+        <service
+            android:name=".webservice.WeatherService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

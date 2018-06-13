@@ -1,19 +1,25 @@
 package edu.gvsu.cis.hw_10;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.location.Location;
 
@@ -26,8 +32,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.gvsu.cis.hw_10.webservice.WeatherService;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -60,6 +68,23 @@ public class GeoCalculator extends AppCompatActivity
 
     GoogleApiClient apiClient;
 
+    @BindView(R.id.p1Icon) ImageView p1Icon;
+    @BindView(R.id.p2Icon) ImageView p2Icon;
+    @BindView(R.id.p1Summary) TextView p1Summary;
+    @BindView(R.id.p2Summary) TextView p2Summary;
+    @BindView(R.id.p1Temp) TextView p1Temp;
+    @BindView(R.id.p2Temp) TextView p2Temp;
+
+
+    private void setWeatherViews(int visible) {
+        p1Icon.setVisibility(visible);
+        p2Icon.setVisibility(visible);
+        p1Summary.setVisibility(visible);
+        p2Summary.setVisibility(visible);
+        p1Temp.setVisibility(visible);
+        p2Temp.setVisibility(visible);
+    }
+
     @OnClick(R.id.searchBtn) void searchBtn() {
         Intent intent = new Intent(GeoCalculator.this, LocationSearchActivity.class);
         startActivityForResult(intent, NEW_COORDINATE_REQUEST);
@@ -72,6 +97,11 @@ public class GeoCalculator extends AppCompatActivity
         topRef = FirebaseDatabase.getInstance().getReference("history");
         topRef.addChildEventListener (chEvListener);
         //topRef.addValueEventListener(valEvListener);
+        //setWeatherViews(coordinatorLayout.INVISIBLE);
+        IntentFilter weatherFilter = new IntentFilter(WeatherService.BROADCAST_WEATHER);
+        LocalBroadcastManager.getInstance(this).registerReceiver(weatherReceiver,
+                weatherFilter);
+        setWeatherViews(View.INVISIBLE);
     }
 
     @Override
@@ -217,6 +247,8 @@ public class GeoCalculator extends AppCompatActivity
             String p2Latitude = p2LatTxt.getText().toString();
             String p1Longitude = p1LongTxt.getText().toString();
             String p2Longitude = p2LongTxt.getText().toString();
+            WeatherService.startGetWeather(this, p1Latitude, p1Longitude, "p1");
+            WeatherService.startGetWeather(this, p2Latitude, p2Longitude, "p2");
 
             // Notify user that there are blank fields.
             if(p1Latitude.length() == 0 || p2Latitude.length() == 0) {
@@ -260,6 +292,7 @@ public class GeoCalculator extends AppCompatActivity
             p2LongTxt.getText().clear();
             bearLbl.setText("Bearing:");
             distLbl.setText("Distance:");
+            setWeatherViews(coordinatorLayout.INVISIBLE);
         });
     }
 
@@ -354,5 +387,32 @@ public class GeoCalculator extends AppCompatActivity
     public void onPause(){
         super.onPause();
         topRef.removeEventListener(chEvListener);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(weatherReceiver);
     }
+
+    private BroadcastReceiver weatherReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("weather", "onReceive: " + intent);
+            Bundle bundle = intent.getExtras();
+            double temp = bundle.getDouble("TEMPERATURE");
+            String summary = bundle.getString("SUMMARY");
+            String icon = bundle.getString("ICON").replaceAll("-", "_");
+            String key = bundle.getString("KEY");
+            int resID = getResources().getIdentifier(icon , "drawable",
+                    getPackageName());
+            setWeatherViews(View.VISIBLE);
+            if (key.equals("p1")) {
+                p1Summary.setText(summary);
+                p1Temp.setText(Double.toString(temp));
+                p1Icon.setImageResource(resID);
+
+                p1Icon.setVisibility(View.INVISIBLE);
+            } else {
+                p2Summary.setText(summary);
+                p2Temp.setText(Double.toString(temp));
+                p2Icon.setImageResource(resID);
+            }
+        }
+    };
 }

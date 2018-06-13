@@ -127,4 +127,52 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/p1Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="213dp" />
+
+    <ImageView
+        android:id="@+id/p2Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="261dp" />
+
+    <TextView
+        android:id="@+id/p1Temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="213dp" />
+
+    <TextView
+        android:id="@+id/p1Summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="232dp" />
+
+    <TextView
+        android:id="@+id/p2Temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="261dp" />
+
+    <TextView
+        android:id="@+id/p2Summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="280dp" />
+
 </android.support.constraint.ConstraintLayout>
